@@ -4,11 +4,24 @@
 
 function ReportingModel()
 {
+
+    var _countCache = {};
+
+    this.getViewCount = function(code) {
+        // simulate live data being pulled from the server
+        if (typeof _countCache[code] === 'undefined') {
+            _countCache[code] = Math.ceil( Math.random() * 10000 ); // initialize the variable with something believable
+        }
+        var newCount = _countCache[code] += Math.ceil( Math.random() * 10 ); // add some more views each time this function is called
+        return newCount;
+    }
+
+
     // Creates and initialize an Array of countries for showing implementation of a data-table (location report data table in this case)
     this.countries =
     [
         {name: 'Afghanistan', code: 'AF'},
-        {name: 'Åland Islands', code: 'AX'},
+        {name: 'Åland Islands', code: 'AX'}, // Be careful with char encoding, ensure delivery is utf-8
         {name: 'Albania', code: 'AL'},
         {name: 'Algeria', code: 'DZ'},
         {name: 'American Samoa', code: 'AS'},
@@ -96,9 +109,18 @@ function ReportingModel()
         {name: 'Guadeloupe', code: 'GP'},
         {name: 'Guam', code: 'GU'},
         {name: 'Guatemala', code: 'GT'}
-    ]
+    ];
+
+    var that = this;
 
     // Add a property 'views' to each element of the countries array using a loop
+    this.setDataViewCount = function() {
+        for (var i = 0, l = that.countries.length; i < l; i++) {
+            var country = that.countries[i];
+            country.views = that.getViewCount(country.code);
+        }
+        return that.countries;
+    }
 
 }
 

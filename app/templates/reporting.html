@@ -1,9 +1,40 @@
-<div>
+<div class="container">
 
+	<!-- location data table -->
 
-    <!-- location data table -->
+	<div class="row">
+		<div class="span4">
+			<p>Number of Rows per page:</p>
+			<div class="pagination pagination-large">
+				<ul>
+					<li ng-repeat="perPage in [10,20,30]"><a ng-click="setPerPage(perPage)">{{ perPage }}</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="span8">
+			<p>Jump to page:</p>
+			<div class="pagination pagination-large">
+				<ul>
+					<!-- +1 to page number as page = 0 isn't very friendly -->
+					<li ng-repeat="page in pages"><a ng-click="paginateTo(page)">{{ page +1 }}</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-    <p>Hello !</p>
+	<div class="row">
+		<table class="span12 table table-striped">
+			<tr>
+				<th>Countries</th>
+				<th>Views</th>
+			</tr>
+			<tr ng-repeat="countryView in countryViews">
+				<td>{{ countryView.name }}</td>
+				<td>{{ countryView.views }}</td>
+			</tr>
+		</table>
+	</div>
+
 
 
 </div>
